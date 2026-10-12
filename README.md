@@ -219,6 +219,8 @@ void loop() {
   }
 }
 ```
+## Arduino wiring
+LCD PinPin NameConnect ToDescription1VSSGNDGround2VDD5VPower supply3V0Potentiometer (Wiper)Contrast adjustment (connect ends to 5V and GND, wiper to V0)4RSArduino Digital Pin 12Register Select5R/WGNDRead/Write (tied to GND for Write mode)6EArduino Digital Pin 11Enable7–10D0–D3Not ConnectedUnused in 4-bit mode11D4Arduino Digital Pin 5Data Bit 412D5Arduino Digital Pin 4Data Bit 513D6Arduino Digital Pin 3Data Bit 614D7Arduino Digital Pin 2Data Bit 715A (LED+)5V via 220Ω resistorBacklight Anode16K (LED-)GNDBacklight Cathode
 
 Opening the serial port resets most Arduino boards, so the Python script waits
 two seconds after connecting before sending anything.
