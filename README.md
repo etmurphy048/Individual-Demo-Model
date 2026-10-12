@@ -219,11 +219,33 @@ void loop() {
   }
 }
 ```
-## Arduino wiring
-LCD PinPin NameConnect ToDescription1VSSGNDGround2VDD5VPower supply3V0Potentiometer (Wiper)Contrast adjustment (connect ends to 5V and GND, wiper to V0)4RSArduino Digital Pin 12Register Select5R/WGNDRead/Write (tied to GND for Write mode)6EArduino Digital Pin 11Enable7–10D0–D3Not ConnectedUnused in 4-bit mode11D4Arduino Digital Pin 5Data Bit 412D5Arduino Digital Pin 4Data Bit 513D6Arduino Digital Pin 3Data Bit 614D7Arduino Digital Pin 2Data Bit 715A (LED+)5V via 220Ω resistorBacklight Anode16K (LED-)GNDBacklight Cathode
 
-Opening the serial port resets most Arduino boards, so the Python script waits
-two seconds after connecting before sending anything.
+
+## Arduino wiring
+
+## Wiring Table
+
+| Component | Component Pin / Function | Arduino Mega Connection | Notes / Resistors |
+| :--- | :--- | :--- | :--- |
+| **LCD 2x16** | Pin 1 (VSS) | GND | Ground |
+| | Pin 2 (VDD) | 5V | Power supply |
+| | Pin 3 (V0) | Potentiometer (Wiper) | Contrast adjustment |
+| | Pin 4 (RS) | Digital Pin 12 | Register Select |
+| | Pin 5 (R/W) | GND | Read/Write (tied to GND) |
+| | Pin 6 (E) | Digital Pin 11 | Enable |
+| | Pins 7–10 (D0–D3) | *Not Connected* | Unused in 4-bit mode |
+| | Pin 11 (D4) | Digital Pin 5 | Data Bit 4 |
+| | Pin 12 (D5) | Digital Pin 4 | Data Bit 5 |
+| | Pin 13 (D6) | Digital Pin 3 | Data Bit 6 |
+| | Pin 14 (D7) | Digital Pin 2 | Data Bit 7 |
+| | Pin 15 (LED+) | 5V | Backlight Anode (via 220Ω resistor) |
+| | Pin 16 (LED-) | GND | Backlight Cathode |
+| **Red LED** | Anode (+) | Digital Pin 9 | Through 220Ω resistor |
+| | Cathode (-) | GND | Ground |
+| **Blue LED** | Anode (+) | Digital Pin 8 | Through 220Ω resistor |
+| | Cathode (-) | GND | Ground |
+| **Potentiometer** | Outer Pins | 5V & GND | Power supply for contrast |
+| | Wiper (Middle Pin)| LCD Pin 3 (V0) | Contrast control signal |
 
 ---
 
