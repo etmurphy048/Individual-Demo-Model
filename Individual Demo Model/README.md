@@ -41,8 +41,8 @@ The model was trained on three classes:
 
 | Index | Label     | Meaning                              |
 |:-----:|-----------|--------------------------------------|
-| 0     | `Blue`    | Show the blue object to the camera   |
-| 1     | `Red`     | Show the red object to the camera    |
+| 0     | `Blue`    | Show the blue index card to the camera   |
+| 1     | `Red`     | Show the red index card to the camera    |
 | 2     | `Nothing` | Empty frame / background             |
 
 There are two scripts. The first is a classifier only — useful for checking that
@@ -203,20 +203,64 @@ The board is expected to read newline-terminated strings. The Python side sends
 exactly `Blue\n`, `Red\n`, or `Nothing\n`. A minimal matching sketch:
 
 ```cpp
+#include <LiquidCrystal.h>
+
+// Initialize library with interface pin numbers: RS, E, D4, D5, D6, D7
+LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
+
+// Custom character array (5x8 pixels -> 8 bytes)
+ int rLED = 9;
+ int bLED =8;
+
 void setup() {
-  Serial.begin(9600);          // must match BAUD_RATE
-  pinMode(LED_BUILTIN, OUTPUT);
+  lcd.begin(16, 2); // Define 16 columns and 2 rows
+  
+  // Register the custom character in slot 0
+ pinMode(rLED, OUTPUT);
+ pinMode(bLED, OUTPUT);
+  
+  lcd.setCursor(0, 0);
+  //lcd.print("Hello, World!");
+
+  Serial.begin(9600);
+  lcd.setCursor(0, 0);
+  lcd.print("Ready...");
+
 }
 
-void loop() {
-  if (Serial.available()) {
-    String msg = Serial.readStringUntil('\n');
-    msg.trim();
+  String read = "";
 
-    if (msg == "Blue")       { /* ... */ }
-    else if (msg == "Red")   { /* ... */ }
-    else if (msg == "Nothing") { /* ... */ }
+void loop() {
+  if(Serial.available() > 0 )
+  {
+    read = Serial.readStringUntil('\n');
+    read.trim();
+
+    if(read == "Red")
+    {
+      digitalWrite(rLED, HIGH);
+      digitalWrite(bLED, LOW);
+      lcd.setCursor(6, 0);
+      lcd.print(read);
+    }
+    else if(read == "Blue")
+    {
+      digitalWrite(bLED, HIGH);
+      digitalWrite(rLED, LOW);
+      lcd.setCursor(6, 0);
+      lcd.print(read);
+    }
+    else if (read == "Nothing")
+    {
+      lcd.clear();
+      digitalWrite(rLED, LOW);
+      digitalWrite(bLED, LOW);
+
+    }
+
   }
+
+ 
 }
 ```
 
